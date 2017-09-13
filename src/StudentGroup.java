@@ -1,5 +1,5 @@
 import java.util.Date;
-
+import java.util.*;
 /**
  * A fix-sized array of students
  * array length should always be equal to the number of stored elements
@@ -14,6 +14,7 @@ import java.util.Date;
 public class StudentGroup implements StudentArrayOperation {
 
 	private Student[] students;
+	ArrayList<Student> al=new ArrayList(Arrays.asList(students));
 	
 	/**
 	 * DO NOT remove or change this constructor, it will be used during task check
@@ -21,131 +22,221 @@ public class StudentGroup implements StudentArrayOperation {
 	 */
 	public StudentGroup(int length) {
 		this.students = new Student[length];
-		
-			
 	}
 
 	@Override
 	public Student[] getStudents() {
-		// Add your implementation here
-		for(int i=0;i<length;i++)
-			System.out.println(student[i]);
-		return null;
+		return students;
 	}
 
 	@Override
-	public void setStudents(Student[] students) 
-	{
-		// Add your implementation here
-		
-		
-		
-		for(int i=0;i<length;i++)
+	public void setStudents(Student[] students) {
+		if(students == null)
 		{
-			BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
-			student[i]=Integer.parseInt(b.readLine());
-			try
-			{
-			if(student[i]==null)
-			{
-				throw new IllegalArgumentException("demo");
-			}
-			}	
-			catch(Exception e)
-				{
-					System.out.println("IllegalArgumentException");
-				}
-				
-			}		
+			throw new IllegalArgumentException();
 		}
+		else
+		{
+			ArrayList<Student> ss=new ArrayList(Arrays.asList(students)); 
+			al.addAll(ss);
+			String[] s = al.toArray(new String[al.size()]);
+		}
+		
 	}
 
 	@Override
 	public Student getStudent(int index) {
-		// Add your implementation here
-		int a=
-		return student[index];
-		//return null;
+		if(index<0 || index>=students.length)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
+				return students[index];
+		}
 	}
 
 	@Override
 	public void setStudent(Student student, int index) {
-		// Add your implementation here
-	int ind;
-	ind=index;
-	System.out.println("enter a value");
-		BufferedReader b =new BufferedReader(new InputStreamReader(System.in));
-		student[ind]=Integer.parseInt(b.readLine());
+		if(student == null || index<0 || index>=students.length)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
+			al.set(index,student);
+		}
 	}
 
 	@Override
 	public void addFirst(Student student) {
-		// Add your implementation here
-		System.out.println("enter number of elements you want to enter");
-		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-		n=Integer.parseInt(br.readLine());
-		int b[]=new b[length+n];
-		System.out.println("enter elements");
-		for(int i=0;i<n;i++)
+		if(student == null)
 		{
-			b[i]=Integer.parseInt(br.readLine());
+			throw new IllegalArgumentException();
 		}
-		int k=lenght+n;
-		for(int j=n+1,index=0;j<k;j++,index++)
+		else
 		{
-			b[j]=a[index];
+			al.set(0,student);
 		}
 	}
 
 	@Override
 	public void addLast(Student student) {
-		// Add your implementation here
+		if(student == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
+			al.set(al.size()+1,student);
+		}
 	}
 
 	@Override
 	public void add(Student student, int index) {
-		// Add your implementation here
+		if(student == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
+			al.add(index,student);
+		}
 	}
 
 	@Override
 	public void remove(int index) {
-		// Add your implementation here
+		if(index<0 || index>students.length)
+		{
+			throw new IllegalArgumentException();
+		}
+		else{
+			al.remove(index);
+		}
 	}
 
 	@Override
 	public void remove(Student student) {
-		// Add your implementation here
+		int c=0;
+		for(int i=0;i<al.size();i++)
+		{
+			if(al.get(i) == student)
+			{
+				al.remove(i);
+				c++;
+				break;
+			}
+		}
+		if(c!=0 || student == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		
 	}
 
 	@Override
 	public void removeFromIndex(int index) {
-		// Add your implementation here
+		if(index<0 || index>students.length)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
+			for(int i=index;i<al.size();i++)
+			{	
+				al.remove(i);
+			}
+		}
+		
 	}
 
 	@Override
 	public void removeFromElement(Student student) {
-		// Add your implementation here
+		int c=0;
+		if(student == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
+			for(int i=0;i<al.size();i++)
+			{
+				if(al.get(i) == student)
+				{
+					al.remove(i);
+					c=i;
+					break;
+				}
+			}
+			if(c>0)
+			{
+				for(int i=c;i<al.size();i++)
+				{
+					al.remove(i);
+				}
+			}
+		}
+		
 	}
 
 	@Override
 	public void removeToIndex(int index) {
-		// Add your implementation here
+		if(index<0 || index>=students.length)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
+			for(int i=0;i<index;i++)
+			{
+				al.remove(i);
+			}
+		}
 	}
 
 	@Override
 	public void removeToElement(Student student) {
-		// Add your implementation here
+		int c=0;
+		if(student == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
+			for(int i=0;i<al.size();i++)
+			{
+				if(al.get(i) == student)
+				{
+					al.remove(i);
+					c=i;
+					break;
+				}
+			}
+			if(c>0)
+			{
+				for(int i=0;i<c;i++)
+				{
+					al.remove(i);
+				}
+			}
+		}
 	}
 
 	@Override
 	public void bubbleSort() {
-		// Add your implementation here
+		
 	}
 
 	@Override
 	public Student[] getByBirthDate(Date date) {
-		// Add your implementation here
-		return null;
+		if(date == null)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	@Override
